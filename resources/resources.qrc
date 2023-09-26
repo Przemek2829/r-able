@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/plugins/r_able" >
+        <file>edit.png</file>
+        <file>green.png</file>
+        <file>icon.png</file>
+        <file>info.png</file>
+        <file>minimize.png</file>
+        <file>minimize_hover.png</file>
+        <file>minimize_pressed.png</file>
+        <file>minus.png</file>
+        <file>minus_pressed.png</file>
+        <file>no_sort.png</file>
+        <file>plus.png</file>
+        <file>plus_pressed.png</file>
+        <file>red.png</file>
+        <file>refresh.png</file>
+        <file>reject.png</file>
+        <file>sort_asc.png</file>
+        <file>sort_desc.png</file>
+        <file>x.png</file>
+        <file>x_hover.png</file>
+        <file>x_pressed.png</file>
+    </qresource>
+</RCC>
