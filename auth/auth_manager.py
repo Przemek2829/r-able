@@ -93,8 +93,11 @@ class AuthManager:
                 return config
 
     def connectRableService(self):
-        self.progress_screen.showProgress('connecting...')
-        self.connect_task.start()
+        config = self.currentConfig()
+        if config:
+            self.connect_task.config = config
+            self.progress_screen.showProgress('connecting...')
+            self.connect_task.start()
 
     def connectTaskFinished(self):
         self.changeServiceStatus()
@@ -161,7 +164,10 @@ class AuthManager:
 
     def updateSubscriptionInfo(self, info):
         self.window.settings_subscription_value_label.setText('')
-        self.window.settings_account_name_value_label.setText(info.get('username'))
+        first_name = info.get('first_name')
+        last_name = info.get('last_name')
+        username = info.get('username')
+        self.window.settings_account_name_value_label.setText(f'{first_name} {last_name}({username})')
         status = info.get('active')
         status = 'active' if status else ''
         self.window.reconnect_service_btn.setVisible(not status)

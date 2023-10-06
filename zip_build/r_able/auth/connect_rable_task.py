@@ -9,12 +9,11 @@ class ConnectRableTask(QThread):
         super(ConnectRableTask, self).__init__()
 
     def run(self):
-        config = self.parent.currentConfig()
         self.error = None
         self.parent.app.token = None
-        if config:
-            config_map = config.configMap()
-            auth_url = '%s/auth/token' % config.uri()
+        if self.config:
+            config_map = self.config.configMap()
+            auth_url = '%s/auth/token' % self.config.uri()
             user = config_map.get('username')
             password = config_map.get('password')
             payload = {"username": user, "password": password}

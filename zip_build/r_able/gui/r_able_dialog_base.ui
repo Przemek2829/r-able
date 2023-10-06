@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>850</width>
-    <height>605</height>
+    <width>1008</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>850</width>
-    <height>605</height>
+    <width>1000</width>
+    <height>600</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -203,108 +203,51 @@
          <property name="title">
           <string>Search timeframe</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
           <item>
-           <layout class="QHBoxLayout" name="data_time_interval_layout">
-            <item>
-             <widget class="QLabel" name="data_start_time_label">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Start</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QgsDateTimeEdit" name="data_start_time_edit">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="dateTime">
-               <datetime>
-                <hour>0</hour>
-                <minute>0</minute>
-                <second>0</second>
-                <year>2020</year>
-                <month>1</month>
-                <day>1</day>
-               </datetime>
-              </property>
-              <property name="date">
-               <date>
-                <year>2020</year>
-                <month>1</month>
-                <day>1</day>
-               </date>
-              </property>
-              <property name="displayFormat">
-               <string>dd.MM.yyyy</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="data_end_time_label">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>End</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QgsDateTimeEdit" name="data_end_time_edit">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="dateTime">
-               <datetime>
-                <hour>0</hour>
-                <minute>0</minute>
-                <second>0</second>
-                <year>2021</year>
-                <month>1</month>
-                <day>1</day>
-               </datetime>
-              </property>
-              <property name="date">
-               <date>
-                <year>2021</year>
-                <month>1</month>
-                <day>1</day>
-               </date>
-              </property>
-              <property name="displayFormat">
-               <string>dd.MM.yyyy</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QLabel" name="data_start_time_label">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Date</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="data_years_from_box">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimum">
+             <number>2000</number>
+            </property>
+            <property name="maximum">
+             <number>10000</number>
+            </property>
+            <property name="value">
+             <number>2020</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </widget>
@@ -322,7 +265,7 @@
            <item>
             <widget class="QGroupBox" name="data_unit_selection_box">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -379,7 +322,7 @@
               <item>
                <widget class="QScrollArea" name="data_selected_units">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -413,8 +356,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>409</width>
-                   <height>127</height>
+                   <width>501</width>
+                   <height>451</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -437,10 +380,17 @@
              </layout>
             </widget>
            </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QGroupBox" name="data_search_extent_box">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
@@ -458,31 +408,14 @@
               <property name="verticalSpacing">
                <number>15</number>
               </property>
-              <item row="0" column="1">
-               <widget class="QLineEdit" name="data_north_input">
-                <property name="placeholderText">
-                 <string>North</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="QLineEdit" name="data_east_input">
-                <property name="placeholderText">
-                 <string>East</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0">
-               <widget class="QComboBox" name="data_layers_combo">
-                <item>
-                 <property name="text">
-                  <string>Layer</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
               <item row="2" column="0">
                <widget class="QLineEdit" name="data_west_input">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="placeholderText">
                  <string>West</string>
                 </property>
@@ -490,6 +423,12 @@
               </item>
               <item row="3" column="1">
                <widget class="QLineEdit" name="data_south_input">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="placeholderText">
                  <string>South</string>
                 </property>
@@ -497,6 +436,12 @@
               </item>
               <item row="4" column="2">
                <widget class="QPushButton" name="data_select_map_range_btn">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>Select range from map</string>
                 </property>
@@ -504,151 +449,77 @@
               </item>
               <item row="4" column="1">
                <widget class="QPushButton" name="data_active_layer_btn">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>Active layer</string>
                 </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QLineEdit" name="data_east_input">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="placeholderText">
+                 <string>East</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="data_north_input">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="placeholderText">
+                 <string>North</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QComboBox" name="data_layers_combo">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Layer</string>
+                 </property>
+                </item>
                </widget>
               </item>
              </layout>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="data_search_history_btn">
-             <property name="enabled">
-              <bool>false</bool>
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
              </property>
-             <property name="text">
-              <string>Select from search history</string>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
              </property>
-            </widget>
+            </spacer>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
-              <widget class="QPushButton" name="data_find_btn">
-               <property name="text">
-                <string>Find datasets</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="data_clear_search_btn">
-               <property name="text">
-                <string>Clear search</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
-           <item>
-            <widget class="QTableWidget" name="data_adm_dataset_table">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="locale">
-              <locale language="English" country="UnitedStates"/>
-             </property>
-             <property name="sizeAdjustPolicy">
-              <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
-             </property>
-             <property name="textElideMode">
-              <enum>Qt::ElideMiddle</enum>
-             </property>
-             <attribute name="horizontalHeaderCascadingSectionResizes">
-              <bool>true</bool>
-             </attribute>
-             <attribute name="horizontalHeaderMinimumSectionSize">
-              <number>50</number>
-             </attribute>
-             <attribute name="horizontalHeaderDefaultSectionSize">
-              <number>120</number>
-             </attribute>
-             <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-              <bool>true</bool>
-             </attribute>
-             <attribute name="horizontalHeaderStretchLastSection">
-              <bool>true</bool>
-             </attribute>
-             <attribute name="verticalHeaderCascadingSectionResizes">
-              <bool>true</bool>
-             </attribute>
-             <attribute name="verticalHeaderMinimumSectionSize">
-              <number>18</number>
-             </attribute>
-             <attribute name="verticalHeaderDefaultSectionSize">
-              <number>20</number>
-             </attribute>
-             <attribute name="verticalHeaderShowSortIndicator" stdset="0">
-              <bool>true</bool>
-             </attribute>
-             <attribute name="verticalHeaderStretchLastSection">
-              <bool>false</bool>
-             </attribute>
-             <column>
-              <property name="text">
-               <string>Dataset name</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Dataset timing</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
-              </property>
-             </column>
-            </widget>
-           </item>
-           <item>
-            <widget class="QProgressBar" name="data_adm_progress">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="value">
-              <number>0</number>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QGridLayout" name="gridLayout_6">
-             <item row="2" column="1">
               <widget class="QPushButton" name="data_adm_load_datasets_btn">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -661,16 +532,10 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="label">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
+             <item>
+              <widget class="QPushButton" name="data_clear_search_btn">
                <property name="text">
-                <string/>
+                <string>Clear search</string>
                </property>
               </widget>
              </item>
@@ -743,82 +608,51 @@
            <property name="title">
             <string>Choose timeframe of interest</string>
            </property>
-           <layout class="QFormLayout" name="formLayout">
+           <layout class="QHBoxLayout" name="horizontalLayout_14">
             <property name="sizeConstraint">
              <enum>QLayout::SetDefaultConstraint</enum>
             </property>
-            <item row="0" column="0">
+            <item>
              <widget class="QLabel" name="services_from_label">
-              <property name="text">
-               <string>From</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QgsDateTimeEdit" name="services_from_time_edit">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="frame">
-               <bool>true</bool>
-              </property>
-              <property name="dateTime">
-               <datetime>
-                <hour>0</hour>
-                <minute>0</minute>
-                <second>0</second>
-                <year>2016</year>
-                <month>4</month>
-                <day>17</day>
-               </datetime>
-              </property>
-              <property name="date">
-               <date>
-                <year>2016</year>
-                <month>4</month>
-                <day>17</day>
-               </date>
-              </property>
-              <property name="displayFormat">
-               <string>dd.MM.yyyy</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="services_to_label">
               <property name="text">
-               <string>To</string>
+               <string>Date</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <widget class="QgsDateTimeEdit" name="services_to_time_edit">
+            <item>
+             <widget class="QSpinBox" name="services_year_box">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="frame">
-               <bool>true</bool>
+              <property name="minimum">
+               <number>2000</number>
               </property>
-              <property name="dateTime">
-               <datetime>
-                <hour>0</hour>
-                <minute>0</minute>
-                <second>0</second>
-                <year>2021</year>
-                <month>2</month>
-                <day>27</day>
-               </datetime>
-              </property>
-              <property name="displayFormat">
-               <string>dd.MM.yyyy</string>
+              <property name="maximum">
+               <number>10000</number>
               </property>
              </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </widget>
@@ -852,6 +686,12 @@
             </property>
             <item>
              <widget class="QCheckBox" name="services_wms_check">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="text">
                <string>Web Map Service (OGC WMS)</string>
               </property>
@@ -883,7 +723,7 @@
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>16777215</width>
              <height>70</height>
             </size>
            </property>
@@ -899,7 +739,7 @@
          <item>
           <widget class="QGroupBox" name="services_adresses_box">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -913,7 +753,7 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>100</height>
+             <height>16777215</height>
             </size>
            </property>
            <property name="title">
@@ -939,12 +779,7 @@
               </property>
               <item>
                <property name="text">
-                <string>WMS: https://r-able.wizipisi.ai/ogc/wms</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>WMTS: https://r-able.wizipisi.ai/ogc/wtms</string>
+                <string>https://mapy.geoportal.gov.pl/wss/service/PZGIK/ORTO/WMS/StandardResolution</string>
                </property>
               </item>
              </widget>
@@ -968,7 +803,7 @@
            </property>
            <property name="maximumSize">
             <size>
-             <width>180</width>
+             <width>16777215</width>
              <height>70</height>
             </size>
            </property>
@@ -1029,96 +864,92 @@
          <property name="title">
           <string>Report timeframe</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_10">
+         <layout class="QHBoxLayout" name="horizontalLayout_13">
           <item>
-           <layout class="QHBoxLayout" name="reports_time_interval_layout">
-            <item>
-             <widget class="QLabel" name="reports_start_label">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Start</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QgsDateTimeEdit" name="reports_start_time_edit">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="dateTime">
-               <datetime>
-                <hour>0</hour>
-                <minute>0</minute>
-                <second>0</second>
-                <year>2020</year>
-                <month>1</month>
-                <day>1</day>
-               </datetime>
-              </property>
-              <property name="date">
-               <date>
-                <year>2020</year>
-                <month>1</month>
-                <day>1</day>
-               </date>
-              </property>
-              <property name="displayFormat">
-               <string>dd.MM.yyyy</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="reports_end_label">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>End</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QgsDateTimeEdit" name="reports_end_time_edit">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="dateTime">
-               <datetime>
-                <hour>0</hour>
-                <minute>0</minute>
-                <second>0</second>
-                <year>2021</year>
-                <month>1</month>
-                <day>1</day>
-               </datetime>
-              </property>
-              <property name="date">
-               <date>
-                <year>2021</year>
-                <month>1</month>
-                <day>1</day>
-               </date>
-              </property>
-              <property name="displayFormat">
-               <string>dd.MM.yyyy</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QLabel" name="reports_start_label">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Start</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QgsDateTimeEdit" name="reports_start_time_edit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="dateTime">
+             <datetime>
+              <hour>0</hour>
+              <minute>0</minute>
+              <second>0</second>
+              <year>2020</year>
+              <month>1</month>
+              <day>1</day>
+             </datetime>
+            </property>
+            <property name="date">
+             <date>
+              <year>2020</year>
+              <month>1</month>
+              <day>1</day>
+             </date>
+            </property>
+            <property name="displayFormat">
+             <string>dd.MM.yyyy</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="reports_end_label">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>End</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QgsDateTimeEdit" name="reports_end_time_edit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="dateTime">
+             <datetime>
+              <hour>0</hour>
+              <minute>0</minute>
+              <second>0</second>
+              <year>2021</year>
+              <month>1</month>
+              <day>1</day>
+             </datetime>
+            </property>
+            <property name="date">
+             <date>
+              <year>2021</year>
+              <month>1</month>
+              <day>1</day>
+             </date>
+            </property>
+            <property name="displayFormat">
+             <string>dd.MM.yyyy</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -1178,7 +1009,7 @@
               <item>
                <widget class="QScrollArea" name="reports_selected_units">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -1212,8 +1043,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>376</width>
-                   <height>94</height>
+                   <width>455</width>
+                   <height>183</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -1239,31 +1070,13 @@
              </layout>
             </widget>
            </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
-             <item>
-              <widget class="QPushButton" name="reports_search_history_btn">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string>Select from search history</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="reports_clear_units_btn">
-               <property name="text">
-                <string>Clear</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
           </layout>
          </item>
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_12">
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QGroupBox" name="reports_fields_box">
              <property name="sizePolicy">
@@ -1470,16 +1283,30 @@
              </layout>
             </widget>
            </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="reports_order_report_btn">
+               <property name="text">
+                <string>Order report</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="reports_clear_units_btn">
+               <property name="text">
+                <string>Clear</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
           </layout>
          </item>
         </layout>
-       </item>
-       <item>
-        <widget class="QPushButton" name="reports_order_report_btn">
-         <property name="text">
-          <string>Order report</string>
-         </property>
-        </widget>
        </item>
        <item>
         <widget class="QGroupBox" name="reports_user_reports_box">
@@ -2107,13 +1934,9 @@ QPushButton::checked{
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>data_start_time_edit</tabstop>
-  <tabstop>data_end_time_edit</tabstop>
   <tabstop>data_unit_selection_box</tabstop>
   <tabstop>data_unit_input</tabstop>
   <tabstop>data_selected_units</tabstop>
-  <tabstop>data_adm_dataset_table</tabstop>
-  <tabstop>data_search_extent_box</tabstop>
   <tabstop>data_north_input</tabstop>
   <tabstop>data_west_input</tabstop>
   <tabstop>data_south_input</tabstop>
@@ -2121,27 +1944,17 @@ QPushButton::checked{
   <tabstop>data_layers_combo</tabstop>
   <tabstop>data_active_layer_btn</tabstop>
   <tabstop>data_select_map_range_btn</tabstop>
-  <tabstop>data_search_history_btn</tabstop>
-  <tabstop>data_find_btn</tabstop>
   <tabstop>data_clear_search_btn</tabstop>
-  <tabstop>data_adm_load_datasets_btn</tabstop>
-  <tabstop>services_from_time_edit</tabstop>
-  <tabstop>services_to_time_edit</tabstop>
   <tabstop>services_wms_check</tabstop>
   <tabstop>services_wmts_check</tabstop>
   <tabstop>services_load_btn</tabstop>
   <tabstop>services_list</tabstop>
   <tabstop>services_copy_url_btn</tabstop>
-  <tabstop>reports_start_time_edit</tabstop>
-  <tabstop>reports_end_time_edit</tabstop>
   <tabstop>reports_unit_input</tabstop>
   <tabstop>reports_title_browser</tabstop>
   <tabstop>reports_subtitle_browser</tabstop>
   <tabstop>reports_description_browser</tabstop>
   <tabstop>reports_author_browser</tabstop>
-  <tabstop>reports_order_report_btn</tabstop>
-  <tabstop>reports_search_history_btn</tabstop>
-  <tabstop>reports_clear_units_btn</tabstop>
   <tabstop>reports_sort_by_title_btn</tabstop>
   <tabstop>reports_sort_by_date_btn</tabstop>
   <tabstop>reports_sort_by_status_btn</tabstop>

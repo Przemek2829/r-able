@@ -1,4 +1,6 @@
+import os
 import re
+import json
 
 from qgis.core import QgsMessageLog, Qgis
 from qgis.PyQt.QtCore import Qt, QSize
@@ -14,22 +16,21 @@ from r_able.messenger import Messenger as msg
 class UnitsManager:
     def __init__(self, app):
         self.app = app
+        self.country_codes = self.countryCodes()
         self.window = app.window
         self.get_units_task = GetUnitsTask(self)
         self.supply_data_units_task = SupplyUnitsTask(self,
                                                       self.window.data_selected_units,
                                                       self.window.data_unit_input,
                                                       self.window.data_progress_label,
-                                                      (self.window.data_search_history_btn,
-                                                       self.window.data_find_btn,
-                                                       self.window.data_clear_search_btn))
+                                                      [self.window.data_adm_load_datasets_btn,
+                                                       self.window.data_clear_search_btn])
         self.supply_reports_units_task = SupplyUnitsTask(self,
                                                          self.window.reports_selected_units,
                                                          self.window.reports_unit_input,
                                                          self.window.reports_progress_label,
-                                                         (self.window.reports_search_history_btn,
-                                                          self.window.reports_clear_units_btn,
-                                                          self.window.reports_order_report_btn))
+                                                         [self.window.reports_clear_units_btn,
+                                                          self.window.reports_order_report_btn])
         self.units = []
         self.units_completer = QCompleter(self.units)
         self.get_units_task.finished.connect(self.getUnitsTaskFinished)
@@ -40,6 +41,10 @@ class UnitsManager:
         self.supply_reports_units_task.progress_changed.connect(lambda units: self.fillUnits(self.supply_reports_units_task, units))
         self.supply_reports_units_task.finished.connect(lambda: self.fillUnits(self.supply_reports_units_task))
         self.window.reports_unit_input.editingFinished.connect(lambda: self.addUnits(self.supply_reports_units_task))
+
+    def countryCodes(self):
+        with open(os.path.join(os.path.dirname(__file__), 'country_codes.json'), encoding='utf-8') as f:
+            return json.load(f)
 
     def configureCompleter(self):
         self.units_completer = QCompleter(self.units)

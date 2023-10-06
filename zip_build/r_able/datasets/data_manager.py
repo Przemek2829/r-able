@@ -27,9 +27,6 @@ class DataManager:
             lambda checked: self.changeSearchMode(checked, self.window.data_unit_selection_box))
         self.window.data_search_extent_box.toggled.connect(
             lambda checked: self.changeSearchMode(checked, self.window.data_search_extent_box))
-        self.window.data_time_interval_btn.clicked.connect(lambda: gh.setupDateRange(self.window.data_time_interval_btn,
-                                                                                     self.window.data_start_time_edit,
-                                                                                     self.window.data_end_time_edit))
         self.window.data_active_layer_btn.clicked.connect(lambda: self.getLayerExtent(None))
         self.window.data_layers_combo.currentIndexChanged.connect(lambda idx: self.getLayerExtent(idx))
         self.window.data_select_map_range_btn.clicked.connect(self.drawRange)

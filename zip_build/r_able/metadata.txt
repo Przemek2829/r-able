@@ -6,7 +6,7 @@
 name=R-ABLE plugin
 qgisMinimumVersion=3.22
 description=//TODO
-version=0.0.1
+version=0.0.2
 author=WIZIPISI
 email=//TODO
 

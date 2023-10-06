@@ -11,23 +11,27 @@ class GetUnitsTask(QThread):
     def run(self):
         self.error = None
         config = self.auth_manager.currentConfig()
+        uri = config.uri()
         self.manager.units = []
-        url = '%s/administrative-unit/pl' % config.uri()
+        url = '%s/administrative-unit/pl' % uri
         headers = {
             'Authorization': 'Bearer %s' % self.token
         }
-        try:
-            response = requests.request("GET", url, headers=headers)
-            if response.status_code == 200:
-                data = response.json()
-                units = data.pop('types')
-                for unit in units:
-                    self.manager.units.append('%s %s' % ('Polska', unit))
-                self.getUnits(data.get('units'), units, 0, ['Polska'])
-            else:
-                self.error = response.text
-        except Exception as e:
-            self.error = e
+        available_countries = self.availableCountries(uri, headers)
+        for code in available_countries:
+            country = self.manager.country_codes.get(code, code)
+            try:
+                response = requests.request("GET", url, headers=headers)
+                if response.status_code == 200:
+                    data = response.json()
+                    units = data.pop('types')
+                    for unit in units:
+                        self.manager.units.append('%s %s' % (country, unit))
+                    self.getUnits(data.get('units'), units, 0, [country])
+                else:
+                    self.error = response.text
+            except Exception as e:
+                self.error = e
 
     def getUnits(self, unit_list, units, level, parents):
         level += 1
@@ -44,3 +48,14 @@ class GetUnitsTask(QThread):
                 parents = [parents[0]]
             else:
                 parents = parents[:level]
+
+    def availableCountries(self, uri, headers):
+        try:
+            response = requests.request("GET", '%s/administrative-unit/available-countries' % uri, headers=headers)
+            if response.status_code == 200:
+                available_countries = response.json()
+            else:
+                available_countries = ['pl']
+        except Exception as e:
+            available_countries = ['pl']
+        return available_countries

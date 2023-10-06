@@ -45,7 +45,7 @@ class TimeIntervalButton(QPushButton):
         self.setLayout(self.layout)
         self.wheelEvent = self.wheelEvent
         self.fitButtonSize()
-        parent.addWidget(self)
+        parent.layout().addWidget(self)
 
     def wheelEvent(self, event):
         if event.angleDelta().y() > 0:
@@ -95,8 +95,7 @@ class RAbleDialog(QDialog):
         self.reports_tree.setColumnHidden(3, True)
         self.reports_tree.setColumnHidden(4, True)
         self.progress_screen = ProgressScreen(self)
-        self.data_time_interval_btn = TimeIntervalButton(self.data_time_interval_layout)
-        self.reports_time_interval_btn = TimeIntervalButton(self.reports_time_interval_layout)
+        self.reports_time_interval_btn = TimeIntervalButton(self.reports_timeframe_box)
         loading_gif = QMovie(os.path.join(Path(__file__).parents[1], 'resources', "loading.gif"))
         loading_gif.setScaledSize(QSize(20, 20))
         self.reports_progress_label.setMovie(loading_gif)

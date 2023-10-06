@@ -34,7 +34,6 @@ class AuthDialog(QDialog):
 
     def validate(self):
         return self.name_input.text() != '' and \
-               validators.url(self.uri_input.text()) and \
                self.user_input.text() != '' and \
                self.password_input.text() != ''
 

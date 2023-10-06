@@ -10,6 +10,7 @@ from .gui.r_able_dialog import RAbleDialog
 from .gui.gui_translator import GuiTranslator as gt
 from .datasets.data_manager import DataManager
 from .reports.reports_manager import ReportsManager
+from .services.service_manager import ServiceManager
 from .units.units_manager import UnitsManager
 
 
@@ -114,5 +115,6 @@ class RAble:
         self.auth_manager = AuthManager(self)
         self.data_manager = DataManager(self, self.iface)
         self.reports_manager = ReportsManager(self)
+        self.service_manager = ServiceManager(self)
         splash.close()
         self.first_start = False
