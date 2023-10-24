@@ -1,7 +1,6 @@
 import os
 import sys
 import re
-import validators
 
 from qgis.PyQt import uic
 from qgis.PyQt.QtCore import Qt
@@ -30,7 +29,7 @@ class AuthDialog(QDialog):
         if self.validate():
             self.accept()
         else:
-            msg.createMessage('R-ABLE', QMessageBox.Warning, 'Form is invalid, all fields should be filled and URI should be valid.', False)
+            msg.createMessage('R-ABLE', QMessageBox.Warning, gt.tr('Form is invalid, all fields should be filled and URI should be valid.'), False)
 
     def validate(self):
         return self.name_input.text() != '' and \

@@ -23,12 +23,12 @@ class ReportMetaDialog(QDialog):
             self.title.setPlainText(report.get('title'))
             self.subtitle.setPlainText(report.get('subtitle'))
             self.description.setPlainText(report.get('meta', {}).get('description'))
-            self.time_from.setText(report.get('meta', {}).get('time_from'))
-            self.time_to.setText(report.get('meta', {}).get('time_to'))
+            self.time_from.setText(str(report.get('year_from')))
+            self.time_to.setText(str(report.get('year_to')))
             unit_dict = report.get('administrative_unit', {})
             self.unit.setText('%s %s %s (%s)' % (unit_dict.get('country'),
-                                              unit_dict.get('type'),
-                                              unit_dict.get('name'),
-                                              unit_dict.get('code')))
+                                                 unit_dict.get('type'),
+                                                 unit_dict.get('name'),
+                                                 unit_dict.get('code')))
             self.created.setText(report.get('created'))
             self.created_by.setText(report.get('meta', {}).get('author'))

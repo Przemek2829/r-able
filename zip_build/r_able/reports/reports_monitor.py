@@ -7,6 +7,7 @@ from qgis.PyQt.QtWidgets import QTreeWidgetItem, QWidget, QHBoxLayout, QLabel, Q
 
 from .monitor_reports_task import MonitorReportsTask
 from ..gui.gui_handler import GuiHandler as gh
+from ..gui.gui_translator import GuiTranslator as gt
 
 
 class ReportsMonitor:
@@ -26,13 +27,14 @@ class ReportsMonitor:
 
     def monitorReports(self, progress_screen=None):
         if progress_screen:
-            progress_screen.ui.labelLoadingInfo.setText('updating reports...')
+            progress_screen.ui.labelLoadingInfo.setText(gt.tr('updating reports...'))
         self.monitor_task.page = int(re.sub('^(Page )(\\d+)$', r'\2', self.window.reports_page_label.text()))
         self.monitor_task.app = self.app
         self.monitor_task.start()
 
     def monitorTaskFinished(self):
-        self.window.progress_screen.hideProgress()
+        window_visible = self.window.isVisible()
+        self.window.progress_screen.hideProgress(window_visible)
         monitoring_completed = True
         if self.monitor_task.response:
             downloaded_reports = self.monitor_task.response.get('content', [])
@@ -75,7 +77,9 @@ class ReportsMonitor:
                 report_widget = self.window.reports_tree.itemWidget(report_item, 0)
                 report_widget.findChild(QLabel, 'name_label').setText('%s (%s %s)' % (title, uname, ucode))
                 status_label = report_widget.findChild(QLabel, 'status_label')
+                pdf_btn = report_widget.findChild(QPushButton, 'pdf')
                 status_label.setText(status)
+                pdf_btn.setEnabled(status == 'SUCCESS')
                 gh.setLabelStyleSheet(status_label, status)
                 return
         if report_id not in self.manager.deleted_ids:

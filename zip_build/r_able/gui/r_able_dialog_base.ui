@@ -69,14 +69,14 @@
       <widget class="QPushButton" name="reconnect_service_btn">
        <property name="minimumSize">
         <size>
-         <width>20</width>
-         <height>20</height>
+         <width>0</width>
+         <height>0</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>20</width>
-         <height>20</height>
+         <width>16777215</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="text">
@@ -168,23 +168,57 @@
         <number>15</number>
        </property>
        <item>
-        <widget class="QLabel" name="data_main_label">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
+        <layout class="QHBoxLayout" name="horizontalLayout_15">
+         <property name="bottomMargin">
+          <number>0</number>
          </property>
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Finding and loading R-ABLE datasets to QGIS</string>
-         </property>
-        </widget>
+         <item>
+          <widget class="QLabel" name="data_main_label">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Finding and loading R-ABLE datasets to QGIS</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="data_settings_btn">
+           <property name="toolTip">
+            <string>Display settings</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../resources/resources.qrc">
+             <normaloff>:/plugins/r_able/settings.png</normaloff>:/plugins/r_able/settings.png</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="QGroupBox" name="data_search_timeframe_box">
@@ -357,7 +391,7 @@
                    <x>0</x>
                    <y>0</y>
                    <width>501</width>
-                   <height>451</height>
+                   <height>435</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -408,85 +442,7 @@
               <property name="verticalSpacing">
                <number>15</number>
               </property>
-              <item row="2" column="0">
-               <widget class="QLineEdit" name="data_west_input">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="placeholderText">
-                 <string>West</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="QLineEdit" name="data_south_input">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="placeholderText">
-                 <string>South</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="2">
-               <widget class="QPushButton" name="data_select_map_range_btn">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>Select range from map</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="1">
-               <widget class="QPushButton" name="data_active_layer_btn">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="text">
-                 <string>Active layer</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="QLineEdit" name="data_east_input">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="placeholderText">
-                 <string>East</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QLineEdit" name="data_north_input">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="placeholderText">
-                 <string>North</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0">
+              <item row="5" column="0">
                <widget class="QComboBox" name="data_layers_combo">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -499,6 +455,84 @@
                   <string>Layer</string>
                  </property>
                 </item>
+               </widget>
+              </item>
+              <item row="5" column="1">
+               <widget class="QPushButton" name="data_active_layer_btn">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Active layer</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QLineEdit" name="data_south_input">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="placeholderText">
+                 <string>South</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLineEdit" name="data_west_input">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="placeholderText">
+                 <string>West</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="2">
+               <widget class="QLineEdit" name="data_east_input">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="placeholderText">
+                 <string>East</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="data_north_input">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="placeholderText">
+                 <string>North</string>
+                </property>
+               </widget>
+              </item>
+              <item row="5" column="2">
+               <widget class="QPushButton" name="data_select_map_range_btn">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Select range from map</string>
+                </property>
                </widget>
               </item>
              </layout>
@@ -520,7 +554,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
-              <widget class="QPushButton" name="data_adm_load_datasets_btn">
+              <widget class="QPushButton" name="data_load_datasets_btn">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -639,6 +673,9 @@
               <property name="maximum">
                <number>10000</number>
               </property>
+              <property name="value">
+               <number>2020</number>
+              </property>
              </widget>
             </item>
             <item>
@@ -698,9 +735,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="services_wmts_check">
+             <widget class="QCheckBox" name="services_wfs_check">
               <property name="text">
-               <string>Web Map Tile Service (OGC WMTS)</string>
+               <string>Web Feature Service (OGC WFS)</string>
               </property>
              </widget>
             </item>
@@ -774,14 +811,12 @@
                 <height>16777215</height>
                </size>
               </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::ExtendedSelection</enum>
+              </property>
               <property name="modelColumn">
                <number>0</number>
               </property>
-              <item>
-               <property name="text">
-                <string>https://mapy.geoportal.gov.pl/wss/service/PZGIK/ORTO/WMS/StandardResolution</string>
-               </property>
-              </item>
              </widget>
             </item>
            </layout>
@@ -879,32 +914,21 @@
            </widget>
           </item>
           <item>
-           <widget class="QgsDateTimeEdit" name="reports_start_time_edit">
+           <widget class="QSpinBox" name="reports_start_year">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="dateTime">
-             <datetime>
-              <hour>0</hour>
-              <minute>0</minute>
-              <second>0</second>
-              <year>2020</year>
-              <month>1</month>
-              <day>1</day>
-             </datetime>
+            <property name="minimum">
+             <number>2000</number>
             </property>
-            <property name="date">
-             <date>
-              <year>2020</year>
-              <month>1</month>
-              <day>1</day>
-             </date>
+            <property name="maximum">
+             <number>10000</number>
             </property>
-            <property name="displayFormat">
-             <string>dd.MM.yyyy</string>
+            <property name="value">
+             <number>2020</number>
             </property>
            </widget>
           </item>
@@ -922,34 +946,36 @@
            </widget>
           </item>
           <item>
-           <widget class="QgsDateTimeEdit" name="reports_end_time_edit">
+           <widget class="QSpinBox" name="reports_end_year">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="dateTime">
-             <datetime>
-              <hour>0</hour>
-              <minute>0</minute>
-              <second>0</second>
-              <year>2021</year>
-              <month>1</month>
-              <day>1</day>
-             </datetime>
+            <property name="minimum">
+             <number>2000</number>
             </property>
-            <property name="date">
-             <date>
-              <year>2021</year>
-              <month>1</month>
-              <day>1</day>
-             </date>
+            <property name="maximum">
+             <number>10000</number>
             </property>
-            <property name="displayFormat">
-             <string>dd.MM.yyyy</string>
+            <property name="value">
+             <number>2023</number>
             </property>
            </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </widget>
@@ -1044,7 +1070,7 @@
                    <x>0</x>
                    <y>0</y>
                    <width>455</width>
-                   <height>183</height>
+                   <height>180</height>
                   </rect>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -1926,17 +1952,12 @@ QPushButton::checked{
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QgsDateTimeEdit</class>
-   <extends>QDateTimeEdit</extends>
-   <header>qgsdatetimeedit.h</header>
-  </customwidget>
- </customwidgets>
  <tabstops>
+  <tabstop>data_years_from_box</tabstop>
   <tabstop>data_unit_selection_box</tabstop>
   <tabstop>data_unit_input</tabstop>
   <tabstop>data_selected_units</tabstop>
+  <tabstop>data_search_extent_box</tabstop>
   <tabstop>data_north_input</tabstop>
   <tabstop>data_west_input</tabstop>
   <tabstop>data_south_input</tabstop>
@@ -1944,17 +1965,24 @@ QPushButton::checked{
   <tabstop>data_layers_combo</tabstop>
   <tabstop>data_active_layer_btn</tabstop>
   <tabstop>data_select_map_range_btn</tabstop>
+  <tabstop>data_load_datasets_btn</tabstop>
   <tabstop>data_clear_search_btn</tabstop>
+  <tabstop>data_settings_btn</tabstop>
+  <tabstop>services_year_box</tabstop>
   <tabstop>services_wms_check</tabstop>
-  <tabstop>services_wmts_check</tabstop>
+  <tabstop>services_wfs_check</tabstop>
   <tabstop>services_load_btn</tabstop>
   <tabstop>services_list</tabstop>
   <tabstop>services_copy_url_btn</tabstop>
+  <tabstop>reports_start_year</tabstop>
+  <tabstop>reports_end_year</tabstop>
   <tabstop>reports_unit_input</tabstop>
   <tabstop>reports_title_browser</tabstop>
   <tabstop>reports_subtitle_browser</tabstop>
   <tabstop>reports_description_browser</tabstop>
   <tabstop>reports_author_browser</tabstop>
+  <tabstop>reports_order_report_btn</tabstop>
+  <tabstop>reports_clear_units_btn</tabstop>
   <tabstop>reports_sort_by_title_btn</tabstop>
   <tabstop>reports_sort_by_date_btn</tabstop>
   <tabstop>reports_sort_by_status_btn</tabstop>
@@ -1963,13 +1991,13 @@ QPushButton::checked{
   <tabstop>reports_prev_page_btn</tabstop>
   <tabstop>reports_next_page_btn</tabstop>
   <tabstop>reports_tree</tabstop>
+  <tabstop>reports_selected_units</tabstop>
   <tabstop>auths_combo</tabstop>
   <tabstop>edit_auth_btn</tabstop>
   <tabstop>add_auth_btn</tabstop>
   <tabstop>remove_auth_btn</tabstop>
-  <tabstop>reconnect_service_btn</tabstop>
   <tabstop>tab_widget</tabstop>
-  <tabstop>reports_selected_units</tabstop>
+  <tabstop>reconnect_service_btn</tabstop>
  </tabstops>
  <resources>
   <include location="../resources/resources.qrc"/>

@@ -10,6 +10,7 @@ from qgis.PyQt.QtGui import QFontMetrics
 from .get_units_task import GetUnitsTask
 from .supply_units_task import SupplyUnitsTask
 from r_able.gui.gui_handler import GuiHandler as gh
+from r_able.gui.gui_translator import GuiTranslator as gt
 from r_able.messenger import Messenger as msg
 
 
@@ -23,7 +24,7 @@ class UnitsManager:
                                                       self.window.data_selected_units,
                                                       self.window.data_unit_input,
                                                       self.window.data_progress_label,
-                                                      [self.window.data_adm_load_datasets_btn,
+                                                      [self.window.data_load_datasets_btn,
                                                        self.window.data_clear_search_btn])
         self.supply_reports_units_task = SupplyUnitsTask(self,
                                                          self.window.reports_selected_units,
@@ -55,7 +56,7 @@ class UnitsManager:
 
     def getUnits(self):
         if self.window.app.token:
-            self.window.progress_screen.ui.labelLoadingInfo.setText('units loading...')
+            self.window.progress_screen.ui.labelLoadingInfo.setText(gt.tr('units loading...'))
             self.get_units_task.auth_manager = self.app.auth_manager
             self.get_units_task.token = self.app.token
             self.get_units_task.start()
@@ -64,12 +65,11 @@ class UnitsManager:
         self.window.progress_screen.hideProgress()
         self.configureCompleter()
         if self.get_units_task.error:
-            msg.createMessage('R-ABLE - download units', QMessageBox.Warning,
-                              '<p>An error occurred while downloading units</p>'
-                              '<p><i>%s</i></p>' % self.get_units_task.error,
+            msg.createMessage(gt.tr('R-ABLE - download units'), QMessageBox.Warning,
+                              '%s<p><i>%s</i></p>' % (gt.tr('<p>An error occurred while downloading units</p>'), self.get_units_task.error),
                               False)
         else:
-            QgsMessageLog.logMessage('Units successfully loaded', 'R-ABLE', Qgis.Success)
+            QgsMessageLog.logMessage(gt.tr('Units successfully loaded'), 'R-ABLE', Qgis.Success)
 
     def addUnits(self, supply_task):
         self.lockGui(supply_task)
@@ -125,7 +125,7 @@ class UnitsManager:
         if not supply_units:
             self.unlockGui(supply_task)
             supply_task.progress_label.hide()
-        units_container.parent().setTitle('Unit(s) search (%s)' % units_layout.count())
+        units_container.parent().setTitle('%s (%s)' % (gt.tr('Unit(s) search'), units_layout.count()))
 
     def unlockGui(self, supply_task):
         supply_task.input_widget.setEnabled(True)
@@ -139,9 +139,9 @@ class UnitsManager:
         unit_widget.deleteLater()
         units_count = units_layout.count()
         if units_count == 0:
-            units_container.parent().setTitle('Unit(s) search')
+            units_container.parent().setTitle(gt.tr('Unit(s) search'))
         else:
-            units_container.parent().setTitle('Unit(s) search (%s)' % units_count)
+            units_container.parent().setTitle('%s (%s)' % (gt.tr('Unit(s) search'), units_count))
 
     def clearSelectedUnits(self, units_container, units_input):
         units_layout = units_container.widget().layout()
@@ -150,4 +150,4 @@ class UnitsManager:
             selected_unit_item = units_layout.takeAt(0)
             if selected_unit_item is not None:
                 selected_unit_item.widget().deleteLater()
-        units_container.parent().setTitle('Unit(s) search')
+        units_container.parent().setTitle(gt.tr('Unit(s) search'))

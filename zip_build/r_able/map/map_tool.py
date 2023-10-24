@@ -36,18 +36,20 @@ class MapTool(QgsMapTool):
             self.fillSpatialWidget(extent_geom)
         self.window.show()
 
-    def fillSpatialWidget(self, geom):
-        tr_wgs = QgsCoordinateTransform(self.project.crs(), WGS_CRS, self.project)
+    def fillSpatialWidget(self, geom, crs=None):
+        if crs is None:
+            crs = self.project.crs()
+        tr_wgs = QgsCoordinateTransform(crs, WGS_CRS, self.project)
         geom.transform(tr_wgs)
         extent = geom.boundingBox()
         x_min = str(round(extent.xMinimum(), 8))
         y_min = str(round(extent.yMinimum(), 8))
         x_max = str(round(extent.xMaximum(), 8))
         y_max = str(round(extent.yMaximum(), 8))
-        self.window.data_west_input.setText(str(x_min))
-        self.window.data_south_input.setText(str(y_min))
-        self.window.data_east_input.setText(str(x_max))
-        self.window.data_north_input.setText(str(y_max))
+        self.window.data_west_input.setText(x_min)
+        self.window.data_south_input.setText(y_min)
+        self.window.data_east_input.setText(x_max)
+        self.window.data_north_input.setText(y_max)
 
     def drawShape(self):
         self.clearRubber()

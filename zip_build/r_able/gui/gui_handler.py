@@ -34,11 +34,11 @@ class GuiHandler:
     @staticmethod
     def setupDateRange(interval_btn, start_time_edit, end_time_edit):
         interval = re.sub('^[a-zA-Z]+ (\\d+) [a-zA-Z()?]+$', r'\1', interval_btn.label.text())
-        interval = -int(interval) if interval != gt.tr('TimeIntervalButton', 'Last year') else -1
+        interval = -int(interval) if interval != gt.tr('Last year') else -1
         current_time = QDateTime().currentDateTime()
         past_time = current_time.addYears(interval)
-        start_time_edit.setDateTime(past_time)
-        end_time_edit.setDateTime(current_time)
+        start_time_edit.setValue(past_time.date().year())
+        end_time_edit.setValue(current_time.date().year())
 
     @staticmethod
     def addUnit(window, units_container, input_widget, unit):

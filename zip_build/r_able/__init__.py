@@ -34,16 +34,5 @@ def classFactory(iface):  # pylint: disable=invalid-name
     :param iface: A QGIS interface instance.
     :type iface: QgsInterface
     """
-    installDependencies(iface)
     from .r_able import RAble
     return RAble(iface)
-
-
-def installDependencies(iface):
-    dependencies_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'dependencies')
-    try:
-        import validators
-    except ImportError:
-        path = os.path.join(dependencies_dir, 'validators-0.22.0-py3-none-any.whl')
-        sys.path.append(path)
-        import validators

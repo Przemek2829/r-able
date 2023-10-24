@@ -17,6 +17,7 @@ from .download_report_task import DownloadReportTask
 from ..messenger import Messenger as msg
 from ..gui.report_meta_dialog import ReportMetaDialog
 from ..gui.gui_handler import GuiHandler as gh
+from ..gui.gui_translator import GuiTranslator as gt
 
 
 class ReportsManager:
@@ -37,20 +38,22 @@ class ReportsManager:
 
     def contextMenuEvent(self, event):
         menu = QMenu()
-        menu.addAction(QIcon(os.path.join(Path(__file__).parents[1], 'resources/reject.png')), 'Delete selected items')
-        menu.addAction(QIcon(os.path.join(Path(__file__).parents[1], 'resources/pdf.png')), 'Download selected items')
+        delete_action = gt.tr('Delete selected items')
+        download_action = gt.tr('Download selected items')
+        menu.addAction(QIcon(os.path.join(Path(__file__).parents[1], 'resources/reject.png')), delete_action)
+        menu.addAction(QIcon(os.path.join(Path(__file__).parents[1], 'resources/pdf.png')), download_action)
         action = menu.exec(event.globalPos())
         if action:
-            if action.text() == 'Delete selected items':
+            if action.text() == delete_action:
                 self.deleteReport(self.window.reports_tree.selectedItems())
-            if action.text() == 'Download selected items':
+            if action.text() == download_action:
                 self.downloadReportPdf(self.window.reports_tree.selectedItems())
 
     def connectSignals(self):
         self.window.reports_time_interval_btn.clicked.connect(
             lambda: gh.setupDateRange(self.window.reports_time_interval_btn,
-                                      self.window.reports_start_time_edit,
-                                      self.window.reports_end_time_edit))
+                                      self.window.reports_start_year,
+                                      self.window.reports_end_year))
         self.window.reports_clear_units_btn.clicked.connect(
             lambda: self.app.units_manager.clearSelectedUnits(self.window.reports_selected_units, self.window.reports_unit_input))
         self.window.reports_order_report_btn.clicked.connect(self.orderReport)
@@ -81,7 +84,7 @@ class ReportsManager:
         if (interval == -1 and current_page > 1) or interval == 1:
             self.window.reports_tree.clear()
             current_page = current_page + interval
-            self.window.reports_page_label.setText('Page %s' % current_page)
+            self.window.reports_page_label.setText(gt.tr('Page %s') % current_page)
             self.reports_monitor.monitorReports(False)
 
     def changeSortAttribute(self, checked, btn):
@@ -132,10 +135,10 @@ class ReportsManager:
         if item_widget:
             item_layout = item_widget.layout()
             status = item_widget.findChild(QLabel, 'status_label').text()
-            info_btn = gh.createBtn('info', 'Show report metadata', lambda: self.displayReportMeta(curr_item))
-            pdf_btn = gh.createBtn('pdf', 'Download and view report', lambda: self.downloadReportPdf([curr_item]))
+            info_btn = gh.createBtn('info', gt.tr('Show report metadata'), lambda: self.displayReportMeta(curr_item))
+            pdf_btn = gh.createBtn('pdf', gt.tr('Download and view report'), lambda: self.downloadReportPdf([curr_item]))
             pdf_btn.setEnabled(status == 'SUCCESS')
-            del_btn = gh.createBtn('reject', 'Delete report', lambda: self.deleteReport([curr_item]))
+            del_btn = gh.createBtn('reject', gt.tr('Delete report'), lambda: self.deleteReport([curr_item]))
             item_layout.addWidget(info_btn)
             item_layout.addWidget(pdf_btn)
             item_layout.addWidget(del_btn)
@@ -147,8 +150,8 @@ class ReportsManager:
         if self.app.token:
             validation_message = self.reportFormValid(administrative_units)
             if validation_message == '':
-                self.order_task.payload = {"year_from": self.window.reports_start_time_edit.dateTime().date().year(),
-                                           "year_to": self.window.reports_end_time_edit.dateTime().date().year(),
+                self.order_task.payload = {"year_from": self.window.reports_start_year.value(),
+                                           "year_to": self.window.reports_end_year.value(),
                                            "administrative_units": administrative_units,
                                            "title": self.window.reports_title_browser.toPlainText(),
                                            "subtitle": self.window.reports_subtitle_browser.toPlainText(),
@@ -157,35 +160,35 @@ class ReportsManager:
                                            "lang": "pl"}
                 self.order_task.token = self.app.token
                 self.order_task.config = self.app.auth_manager.currentConfig()
-                self.window.progress_screen.showProgress('report generating...')
+                self.window.progress_screen.showProgress(gt.tr('report generating...'))
                 self.order_task.start()
             else:
-                msg.createMessage('R-ABLE - report', QMessageBox.Information, '<p>Report form is not valid</p>%s' % validation_message, False)
+                msg.createMessage(gt.tr('R-ABLE - report'), QMessageBox.Information, gt.tr('<p>Report form is not valid</p>%s') % validation_message, False)
 
     def reportFormValid(self, administrative_units):
         validation_message = []
         if len(administrative_units) == 0:
-            validation_message.append('<p><i>No administrative units selected</i></p>')
+            validation_message.append(gt.tr('<p><i>No administrative units selected</i></p>'))
         if self.window.reports_title_browser.toPlainText().strip() == '':
-            validation_message.append('<p><i>Title input is empty</i></p>')
+            validation_message.append(gt.tr('<p><i>Title input is empty</i></p>'))
         if self.window.reports_subtitle_browser.toPlainText().strip() == '':
-            validation_message.append('<p><i>Subtitle input is empty</i></p>')
+            validation_message.append(gt.tr('<p><i>Subtitle input is empty</i></p>'))
         if self.window.reports_author_browser.toPlainText().strip() == '':
-            validation_message.append('<p><i>Author input is empty</i></p>')
-        if self.window.reports_start_time_edit.dateTime().daysTo(self.window.reports_end_time_edit.dateTime()) <= 0:
-            validation_message.append('<p><i>Report timeframe is incorrect</i></p>')
+            validation_message.append(gt.tr('<p><i>Author input is empty</i></p>'))
+        if self.window.reports_start_year.value() > self.window.reports_end_year.value():
+            validation_message.append(gt.tr('<p><i>Report timeframe is incorrect</i></p>'))
         return ''.join(validation_message)
 
     def orderTaskFinished(self):
+        self.window.setVisible(True)
         self.reports_monitor.monitorReports()
         if self.order_task.error:
-            msg.createMessage('R-ABLE - report error', QMessageBox.Warning,
-                              '<p>An error occurred while ordering the report</p>'
-                              '<p><i>%s</i></p>' % self.order_task.error,
+            msg.createMessage(gt.tr('R-ABLE - report error'), QMessageBox.Warning,
+                              '%s<p><i>%s</i></p>' % (gt.tr('<p>An error occurred while ordering the report</p>'), self.order_task.error),
                               False)
         else:
-            msg.createMessage('R-ABLE - report', QMessageBox.Information,
-                              'Report(s) ordered successfully',
+            msg.createMessage(gt.tr('R-ABLE - report'), QMessageBox.Information,
+                              gt.tr('Report(s) ordered successfully'),
                               False)
 
     def displayReportMeta(self, report_item):
@@ -198,21 +201,21 @@ class ReportsManager:
                 self.download_task.report_items = report_items
                 self.download_task.token = self.app.token
                 self.download_task.config = self.app.auth_manager.currentConfig()
-                self.window.progress_screen.showProgress('downloading...', self.download_task, True)
+                self.window.progress_screen.showProgress(gt.tr('downloading...'), self.download_task, True)
                 self.download_task.start()
         else:
-            msg.createMessage('R-ABLE - download report', QMessageBox.Information,
-                              'Unable to download report - R-ABLE services not connected', False)
+            msg.createMessage(gt.tr('R-ABLE - download report'), QMessageBox.Information,
+                              gt.tr('Unable to download report - R-ABLE services not connected'), False)
 
     def downloadTaskFinished(self):
         self.window.progress_screen.hideProgress()
         if not self.download_task.error:
             reports_len = len(self.download_task.responses)
             if reports_len > 1:
-                save_dir = QFileDialog.getExistingDirectory(self.window, 'Select save folder', '')
+                save_dir = QFileDialog.getExistingDirectory(self.window, gt.tr('Select save folder'), '')
                 save = save_dir != ''
             else:
-                pdf_file = QFileDialog.getSaveFileName(self.window, 'Save pdf report', '', 'Portable Document Format (*.pdf)')[0]
+                pdf_file = QFileDialog.getSaveFileName(self.window, gt.tr('Save pdf report'), '', 'Portable Document Format (*.pdf)')[0]
                 save = pdf_file != ''
             if save:
                 for response in self.download_task.responses:
@@ -221,23 +224,20 @@ class ReportsManager:
                     open(pdf_file, 'wb').write(response[0].content)
                     if reports_len == 1:
                         self.openFile(pdf_file)
-                        msg.createMessage('R-ABLE - download report', QMessageBox.Information,
-                                          '<p>Report saved successfully in location:</p>'
-                                          '<p>%s</p>' % pdf_file,
+                        msg.createMessage(gt.tr('R-ABLE - download report'), QMessageBox.Information,
+                                          '%s<p>%s</p>' % (gt.tr('<p>Report saved successfully in location:</p>'), pdf_file),
                                           False)
                 if reports_len > 1:
-                    msg.createMessage('R-ABLE - download reports', QMessageBox.Information,
-                                      '<p>Reports saved successfully in location:</p>'
-                                      '<p>%s</p>' % save_dir,
+                    msg.createMessage(gt.tr('R-ABLE - download reports'), QMessageBox.Information,
+                                      '%s<p>%s</p>' % (gt.tr('<p>Reports saved successfully in location:</p>'), save_dir),
                                       False)
         else:
             if not self.download_task.terminated:
-                msg.createMessage('R-ABLE - download report', QMessageBox.Warning,
-                                  '<p>An error occurred while downloading the report</p>'
-                                  '<p><i>%s</i></p>' % self.download_task.error,
+                msg.createMessage(gt.tr('R-ABLE - download report'), QMessageBox.Warning,
+                                  '%s<p><i>%s</i></p>' % (gt.tr('<p>An error occurred while downloading the report</p>'), self.download_task.error),
                                   False)
             else:
-                QgsMessageLog.logMessage('Download report: %s' % self.download_task.error, 'R-ABLE', Qgis.Info)
+                QgsMessageLog.logMessage('%s: %s' % (gt.tr('Download report'), self.download_task.error), 'R-ABLE', Qgis.Info)
 
     def openFile(self, pdf_file):
         if platform.system() == "Windows":
@@ -249,31 +249,31 @@ class ReportsManager:
 
     def deleteReport(self, report_items):
         if len(report_items) > 0:
-            resp = msg.createMessage('R-ABLE - delete report', QMessageBox.Question,
-                                     'Do you really want to delete selected report(s)?')
+            resp = msg.createMessage(gt.tr('R-ABLE - delete report'), QMessageBox.Question,
+                                     gt.tr('Do you really want to delete selected report(s)?'))
             if resp == QMessageBox.Ok:
                 if self.app.token:
                     self.delete_task.report_items = report_items
                     self.delete_task.token = self.app.token
                     self.delete_task.config = self.app.auth_manager.currentConfig()
-                    self.window.progress_screen.showProgress('deleting...', self.delete_task, True)
+                    self.window.progress_screen.showProgress(gt.tr('deleting...'), self.delete_task, True)
                     self.delete_task.start()
                 else:
-                    msg.createMessage('R-ABLE - delete report', QMessageBox.Information,
-                                      'Unable to delete report - R-ABLE services not connected', False)
+                    msg.createMessage(gt.tr('R-ABLE - delete report'), QMessageBox.Information,
+                                      gt.tr('Unable to delete report - R-ABLE services not connected'), False)
 
     def deleteTaskFinished(self):
         for report_item in self.delete_task.report_items:
             self.deleted_ids.append(report_item.data(0, 100))
             self.window.reports_tree.takeTopLevelItem(self.window.reports_tree.indexOfTopLevelItem(report_item))
+        self.window.setVisible(True)
         self.reports_monitor.monitorReports()
         if self.delete_task.error:
             if self.delete_task.terminated:
-                QgsMessageLog.logMessage('Delete report: %s' % self.download_task.error, 'R-ABLE', Qgis.Info)
+                QgsMessageLog.logMessage('%s: %s' % (gt.tr('Delete report'), self.download_task.error), 'R-ABLE', Qgis.Info)
             else:
-                msg.createMessage('R-ABLE - delete report', QMessageBox.Warning,
-                                  '<p>An error occurred while deleting the report</p>'
-                                  '<p><i>%s</i></p>' % self.delete_task.error,
+                msg.createMessage(gt.tr('R-ABLE - delete report'), QMessageBox.Warning,
+                                  '%s<p><i>%s</i></p>' % (gt.tr('<p>An error occurred while deleting the report</p>'), self.delete_task.error),
                                   False)
         else:
-            QgsMessageLog.logMessage('Delete report: selected reports removed from user repository', 'R-ABLE', Qgis.Success)
+            QgsMessageLog.logMessage(gt.tr('Delete report: selected reports removed from user repository'), 'R-ABLE', Qgis.Success)

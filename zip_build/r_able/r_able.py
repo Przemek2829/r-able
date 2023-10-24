@@ -34,12 +34,9 @@ class RAble:
             QCoreApplication.installTranslator(self.translator)
 
         self.actions = []
-        self.menu = gt.tr('RAble', u'&R-ABLE plugin')
+        self.menu = gt.tr(u'&R-ABLE plugin')
 
         self.first_start = None
-
-    def tr(self, message):
-        return QCoreApplication.translate('RAble', message)
 
     def add_action(
         self,
@@ -79,7 +76,7 @@ class RAble:
         icon_path = ':/plugins/r_able/icon.png'
         self.add_action(
             icon_path,
-            text=gt.tr('RAble', u'R-ABLE plugin'),
+            text=gt.tr(u'R-ABLE plugin'),
             callback=self.run,
             parent=self.iface.mainWindow())
         self.first_start = True
@@ -87,7 +84,7 @@ class RAble:
     def unload(self):
         for action in self.actions:
             self.iface.removePluginMenu(
-                gt.tr('RAble', u'&R-ABLE plugin'),
+                gt.tr(u'&R-ABLE plugin'),
                 action)
             self.iface.removeToolBarIcon(action)
 
@@ -97,8 +94,7 @@ class RAble:
             splash = self.createSplash()
             QTimer.singleShot(1000, lambda: self.load(splash))
         else:
-            if not self.window.progress_screen.isVisible():
-                self.window.show()
+            self.window.show()
 
     def createSplash(self):
         self.window.setWindowOpacity(0)

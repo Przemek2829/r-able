@@ -7,6 +7,7 @@ from qgis.PyQt.QtCore import QSettings
 from qgis.PyQt.QtGui import QPixmap
 from qgis.core import QgsApplication, QgsAuthMethodConfig, QgsMessageLog, Qgis
 
+from r_able.gui.gui_translator import GuiTranslator as gt
 from r_able.gui.auth_dialog import AuthDialog
 from r_able.messenger import Messenger as msg
 from .connect_rable_task import ConnectRableTask
@@ -72,8 +73,8 @@ class AuthManager:
                 self.connectRableService()
 
     def removeConfig(self):
-        resp = msg.createMessage('R-ABLE - delete connection', QMessageBox.Question,
-                                 'Do you really want to delete current connection?')
+        resp = msg.createMessage(gt.tr('R-ABLE - delete connection'), QMessageBox.Question,
+                                 gt.tr('Do you really want to delete current connection?'))
         if resp == QMessageBox.Ok:
             config = self.configByName()
             if config:
@@ -96,33 +97,33 @@ class AuthManager:
         config = self.currentConfig()
         if config:
             self.connect_task.config = config
-            self.progress_screen.showProgress('connecting...')
+            self.progress_screen.showProgress(gt.tr('connecting...'))
             self.connect_task.start()
 
     def connectTaskFinished(self):
         self.changeServiceStatus()
         self.subscriptionInfo()
         self.app.units_manager.getUnits()
+        self.app.service_manager.getServices()
         self.window.reports_tree.clear()
         self.app.reports_manager.reports_monitor.monitorReports()
         if self.connect_task.error:
             self.progress_screen.hideProgress()
-            msg.createMessage('R-ABLE - connection error', QMessageBox.Warning,
-                              '<p>An attempt to connect to the R-ABLE service failed</p>'
-                              '<p><i>%s</i></p>' % self.connect_task.error,
+            msg.createMessage(gt.tr('R-ABLE - connection error'), QMessageBox.Warning,
+                              '%s<p><i>%s</i></p>' % (gt.tr('<p>An attempt to connect to the R-ABLE service failed</p>'), self.connect_task.error),
                               False)
         else:
-            QgsMessageLog.logMessage('Successfully connected to R-ABLE services', 'R-ABLE', Qgis.Success)
+            QgsMessageLog.logMessage(gt.tr('Successfully connected to R-ABLE services'), 'R-ABLE', Qgis.Success)
 
     def changeServiceStatus(self):
         if self.app.token:
             self.window.service_diode_label.setPixmap(
                 QPixmap(os.path.join(Path(__file__).parents[1], 'resources/green.png')))
-            self.window.service_info_label.setText('Connected to R-ABLE services')
+            self.window.service_info_label.setText(gt.tr('Connected to R-ABLE services'))
         else:
             self.window.service_diode_label.setPixmap(
                 QPixmap(os.path.join(Path(__file__).parents[1], 'resources/red.png')))
-            self.window.service_info_label.setText('Not connected to R-ABLE services')
+            self.window.service_info_label.setText(gt.tr('Not connected to R-ABLE services'))
 
     def currentConfig(self):
         auth_id = QSettings().value('auth_id')
@@ -151,14 +152,12 @@ class AuthManager:
                 if response.status_code == 200:
                     subscription_info = response.json()
                 else:
-                    msg.createMessage('R-ABLE - subscription error', QMessageBox.Warning,
-                                      '<p>An attempt to get subscription info failed</p>'
-                                      '<p><i>%s</i></p>' % response.text,
+                    msg.createMessage(gt.tr('R-ABLE - subscription error'), QMessageBox.Warning,
+                                      '%s<p><i>%s</i></p>' % (gt.tr('<p>An attempt to get subscription info failed</p>'), response.text),
                                       False)
             except Exception as e:
-                msg.createMessage('R-ABLE - connection error', QMessageBox.Warning,
-                                  '<p>An attempt to connect to the R-ABLE service failed</p>'
-                                  '<p><i>%s</i></p>' % e,
+                msg.createMessage(gt.tr('R-ABLE - connection error'), QMessageBox.Warning,
+                                  '%s<p><i>%s</i></p>' % (gt.tr('<p>An attempt to connect to the R-ABLE service failed</p>'), e),
                                   False)
         self.updateSubscriptionInfo(subscription_info)
 
@@ -167,7 +166,7 @@ class AuthManager:
         first_name = info.get('first_name')
         last_name = info.get('last_name')
         username = info.get('username')
-        self.window.settings_account_name_value_label.setText(f'{first_name} {last_name}({username})')
+        self.window.settings_account_name_value_label.setText(f'{first_name} {last_name} ({username})')
         status = info.get('active')
         status = 'active' if status else ''
         self.window.reconnect_service_btn.setVisible(not status)

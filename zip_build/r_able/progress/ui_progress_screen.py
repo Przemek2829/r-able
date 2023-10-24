@@ -6,13 +6,15 @@ from PyQt5.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont, QFont
                          QPalette, QPainter, QPixmap, QRadialGradient)
 from PyQt5.QtWidgets import *
 
+from ..gui.gui_translator import GuiTranslator as gt
+
 
 class UiProgressScreen(object):
     def setupUi(self, ProgressScreen):
         if ProgressScreen.objectName():
             ProgressScreen.setObjectName(u"ProgressScreen")
         ProgressScreen.resize(340, 340)
-        ProgressScreen.setWindowTitle("GIS Mates")
+        ProgressScreen.setWindowTitle("R-ABLE")
         ProgressScreen.setWindowIcon(QIcon(os.path.join(Path(__file__).parents[1], "resources/icon.png")))
         self.centralwidget = QWidget(ProgressScreen)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -123,8 +125,4 @@ class UiProgressScreen(object):
         QMetaObject.connectSlotsByName(ProgressScreen)
 
     def retranslateUi(self, ProgressScreen):
-        ProgressScreen.setWindowTitle(QCoreApplication.translate("ProgressScreen", u"R-ABLE", None))
-        self.labelPercentage.setText(QCoreApplication.translate("ProgressScreen",
-                                                                u"<p><span style=\" font-size:68pt;\">0</span><span style=\" font-size:58pt; vertical-align:super;\">%</span></p>",
-                                                                None))
-        self.labelLoadingInfo.setText(QCoreApplication.translate("ProgressScreen", u"connecting...", None))
+        self.labelLoadingInfo.setText(gt.tr("connecting..."))

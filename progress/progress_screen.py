@@ -5,6 +5,7 @@ from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import *
 
 from .ui_progress_screen import UiProgressScreen
+from ..gui.gui_translator import GuiTranslator as gt
 
 counter = 0
 jumper = 10
@@ -83,12 +84,12 @@ class ProgressScreen(QDialog):
 
         self.ui.circularProgress.setStyleSheet(newStylesheet)
 
-    def showProgress(self, info_text, task=None, show_percentage=False):
+    def showProgress(self, info_text, task=None, show_percentage=False, can_terminate=False):
         self.window.setVisible(False)
         self.progress_task = task
         self.ui.labelLoadingInfo.setText(info_text)
         self.ui.labelPercentage.setVisible(show_percentage)
-        self.ui.kill_task_btn.setVisible(show_percentage)
+        self.ui.kill_task_btn.setVisible(can_terminate)
         self.ui.minimize_btn.setVisible(show_percentage)
         if not show_percentage:
             self.timer.start()
@@ -97,8 +98,8 @@ class ProgressScreen(QDialog):
             self.ui.labelTitle.setAlignment(Qt.AlignCenter)
         self.show()
 
-    def hideProgress(self):
-        self.window.setVisible(True)
+    def hideProgress(self, visible=True):
+        self.window.setVisible(visible)
         self.timer.stop()
         global counter
         counter = 0
@@ -107,5 +108,5 @@ class ProgressScreen(QDialog):
     def killProgressTask(self):
         if self.progress_task is not None:
             self.progress_task.terminated = True
-            self.progress_task.error = 'Terminated by user'
+            self.progress_task.error = gt.tr('Terminated by user')
             self.progress_task.terminate()

@@ -38,7 +38,7 @@ class TimeIntervalButton(QPushButton):
                              lambda: self.changeTimeInterval(-1))
         self.buttons_layout.addWidget(self.plus_button)
         self.buttons_layout.addWidget(self.minus_button)
-        self.label = QLabel(gt.tr('TimeIntervalButton', 'Last year'))
+        self.label = QLabel(gt.tr('Last year'))
         self.label.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
         self.layout.addWidget(self.label)
         self.layout.addLayout(self.buttons_layout)
@@ -62,25 +62,22 @@ class TimeIntervalButton(QPushButton):
 
     def changeTimeInterval(self, increment):
         current_interval = re.sub('^[a-zA-Z]+ (\\d+) [a-zA-Z()?]+$', r'\1', self.label.text())
-        current_interval = int(current_interval) if current_interval != gt.tr('TimeIntervalButton', 'Last year') else 1
+        current_interval = int(current_interval) if current_interval != gt.tr('Last year') else 1
         if current_interval == 1:
             if increment == 1:
-                self.label.setText(gt.tr('TimeIntervalButton', 'Last 2 years'))
+                self.label.setText(gt.tr('Last 2 years'))
         else:
             current_interval += increment
             if current_interval == 1:
-                self.label.setText(gt.tr('TimeIntervalButton', 'Last year'))
+                self.label.setText(gt.tr('Last year'))
             else:
-                self.label.setText('%s %s %s' % (gt.tr('TimeIntervalButton', 'Last'), current_interval, gt.tr('TimeIntervalButton', 'years')))
+                self.label.setText('%s %s %s' % (gt.tr('Last'), current_interval, gt.tr('years')))
         self.fitButtonSize()
 
     def fitButtonSize(self):
         point_size = self.label.font().pointSize()
         size_increment = len(self.label.text())
         self.setMinimumSize(QSize(size_increment * point_size + 5, 30))
-
-    def tr(self, message):
-        return QCoreApplication.translate('TimeIntervalButton', message)
 
 
 class RAbleDialog(QDialog):
