@@ -1719,14 +1719,14 @@ QPushButton::checked{
           <item row="2" column="2">
            <widget class="QLabel" name="settings_account_status_value_label">
             <property name="text">
-             <string>Active. Ends: 2023/12/05</string>
+             <string/>
             </property>
            </widget>
           </item>
           <item row="1" column="2">
            <widget class="QLabel" name="settings_account_name_value_label">
             <property name="text">
-             <string>JKowalski</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -1845,7 +1845,7 @@ QPushButton::checked{
           <item row="0" column="2">
            <widget class="QLabel" name="settings_subscription_value_label">
             <property name="text">
-             <string>Basic, regional, Województwo dolnośląskie</string>
+             <string/>
             </property>
            </widget>
           </item>
@@ -1886,7 +1886,7 @@ QPushButton::checked{
              <bool>false</bool>
             </property>
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;In order to purchase or renew your subscription, please visit our page &lt;a href=&quot;https://r-able.wizipisi.ai&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;r-able.wizipisi.ai&lt;/span&gt;&lt;/a&gt;, log-in or register, and choose the type and scope of R-ABLE data, services and reports access. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>In order to purchase or renew your subscription please contact us at biuro@wizipisi.ai</string>
             </property>
             <property name="textFormat">
              <enum>Qt::AutoText</enum>
@@ -1917,7 +1917,7 @@ QPushButton::checked{
              <bool>false</bool>
             </property>
             <property name="text">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If you are experiencing any issues, using our services, please visit our page &lt;a href=&quot;https://r-able.wizipisi.ai&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;r-able.wizipisi.ai/helpdesk&lt;/span&gt;&lt;/a&gt;, log-in or register, and describe your case.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>If you are experiencing any issues using our services, please contact us at  biuro@wizipisi.ai and describe your case</string>
             </property>
             <property name="textFormat">
              <enum>Qt::AutoText</enum>

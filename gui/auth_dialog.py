@@ -21,6 +21,9 @@ class AuthDialog(QDialog):
         self.button_box.rejected.connect(self.reject)
         self.name_input.setFocus(True)
 
+    def tr(self, message):
+        return QCoreApplication.instance().translate('AuthDialog', message)
+
     def finish(self):
         self.uri_input.setText(self.uri_input.text().replace('\\', '/'))
         if self.uri_input.text() != '':
@@ -29,7 +32,7 @@ class AuthDialog(QDialog):
         if self.validate():
             self.accept()
         else:
-            msg.createMessage('R-ABLE', QMessageBox.Warning, gt.tr('Form is invalid, all fields should be filled and URI should be valid.'), False)
+            msg.createMessage('R-ABLE', QMessageBox.Warning, self.tr('Form is invalid, all fields should be filled and URI should be valid.'), False)
 
     def validate(self):
         return self.name_input.text() != '' and \

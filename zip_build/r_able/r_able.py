@@ -7,7 +7,6 @@ from qgis.PyQt.QtWidgets import QAction, QSplashScreen, QApplication
 from .resources.resources import *
 from .auth.auth_manager import AuthManager
 from .gui.r_able_dialog import RAbleDialog
-from .gui.gui_translator import GuiTranslator as gt
 from .datasets.data_manager import DataManager
 from .reports.reports_manager import ReportsManager
 from .services.service_manager import ServiceManager
@@ -22,7 +21,8 @@ class RAble:
             locale = QSettings().value('locale/userLocale')[0:2]
         except:
             locale = 'en'
-        locale = 'en'
+        print(locale)
+        # locale = 'en'
         locale_path = os.path.join(
             self.plugin_dir,
             'i18n',
@@ -34,9 +34,12 @@ class RAble:
             QCoreApplication.installTranslator(self.translator)
 
         self.actions = []
-        self.menu = gt.tr(u'&R-ABLE plugin')
+        self.menu = self.tr(u'&R-ABLE plugin')
 
         self.first_start = None
+
+    def tr(self, message):
+        return QCoreApplication.translate('RAble', message)
 
     def add_action(
         self,
@@ -76,7 +79,7 @@ class RAble:
         icon_path = ':/plugins/r_able/icon.png'
         self.add_action(
             icon_path,
-            text=gt.tr(u'R-ABLE plugin'),
+            text=self.tr(u'R-ABLE plugin'),
             callback=self.run,
             parent=self.iface.mainWindow())
         self.first_start = True
@@ -84,7 +87,7 @@ class RAble:
     def unload(self):
         for action in self.actions:
             self.iface.removePluginMenu(
-                gt.tr(u'&R-ABLE plugin'),
+                self.tr(u'&R-ABLE plugin'),
                 action)
             self.iface.removeToolBarIcon(action)
 

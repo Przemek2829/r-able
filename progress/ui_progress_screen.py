@@ -124,5 +124,8 @@ class UiProgressScreen(object):
 
         QMetaObject.connectSlotsByName(ProgressScreen)
 
+    def tr(self, message):
+        return QCoreApplication.instance().translate('UiProgressScreen', message)
+
     def retranslateUi(self, ProgressScreen):
-        self.labelLoadingInfo.setText(gt.tr("connecting..."))
+        self.labelLoadingInfo.setText(self.tr("connecting..."))

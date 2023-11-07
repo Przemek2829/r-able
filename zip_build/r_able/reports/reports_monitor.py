@@ -20,6 +20,9 @@ class ReportsMonitor:
         self.monitor_task.finished.connect(self.monitorTaskFinished)
         self.natural_order = 'a'
 
+    def tr(self, message):
+        return QCoreApplication.instance().translate('ReportsMonitor', message)
+
     def configureBackgroundMonitoring(self):
         self.monitor_timer = QTimer()
         self.monitor_timer.timeout.connect(lambda: self.monitorReports(False))
@@ -27,8 +30,8 @@ class ReportsMonitor:
 
     def monitorReports(self, progress_screen=None):
         if progress_screen:
-            progress_screen.ui.labelLoadingInfo.setText(gt.tr('updating reports...'))
-        self.monitor_task.page = int(re.sub('^(Page )(\\d+)$', r'\2', self.window.reports_page_label.text()))
+            progress_screen.ui.labelLoadingInfo.setText(self.tr('updating reports...'))
+        self.monitor_task.page = int(re.sub('^(Page|Strona)\\s(\\d+)$', r'\2', self.window.reports_page_label.text()))
         self.monitor_task.app = self.app
         self.monitor_task.start()
 
@@ -78,8 +81,9 @@ class ReportsMonitor:
                 report_widget.findChild(QLabel, 'name_label').setText('%s (%s %s)' % (title, uname, ucode))
                 status_label = report_widget.findChild(QLabel, 'status_label')
                 pdf_btn = report_widget.findChild(QPushButton, 'pdf')
-                status_label.setText(status)
-                pdf_btn.setEnabled(status == 'SUCCESS')
+                if pdf_btn is not None:
+                    status_label.setText(status)
+                    pdf_btn.setEnabled(status == 'SUCCESS')
                 gh.setLabelStyleSheet(status_label, status)
                 return
         if report_id not in self.manager.deleted_ids:

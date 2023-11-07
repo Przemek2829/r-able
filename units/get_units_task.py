@@ -13,7 +13,6 @@ class GetUnitsTask(QThread):
         config = self.auth_manager.currentConfig()
         uri = config.uri()
         self.manager.units = []
-        url = '%s/administrative-unit/pl' % uri
         headers = {
             'Authorization': 'Bearer %s' % self.token
         }
@@ -21,6 +20,7 @@ class GetUnitsTask(QThread):
         for code in available_countries:
             country = self.manager.country_codes.get(code, code)
             try:
+                url = '%s/administrative-unit/%s' % (uri, code)
                 response = requests.request("GET", url, headers=headers)
                 if response.status_code == 200:
                     data = response.json()

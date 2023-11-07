@@ -1,6 +1,6 @@
 import time
 
-from PyQt5.QtCore import Qt, QTimer, QEvent, QPoint
+from PyQt5.QtCore import Qt, QTimer, QEvent, QPoint, QCoreApplication
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import *
 
@@ -36,6 +36,9 @@ class ProgressScreen(QDialog):
 
         self.ui.minimize_btn.clicked.connect(lambda: self.showMinimized())
         self.ui.kill_task_btn.clicked.connect(self.killProgressTask)
+
+    def tr(self, message):
+        return QCoreApplication.instance().translate('ProgressScreen', message)
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -108,5 +111,5 @@ class ProgressScreen(QDialog):
     def killProgressTask(self):
         if self.progress_task is not None:
             self.progress_task.terminated = True
-            self.progress_task.error = gt.tr('Terminated by user')
+            self.progress_task.error = self.tr('Terminated by user')
             self.progress_task.terminate()

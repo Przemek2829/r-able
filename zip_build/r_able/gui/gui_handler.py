@@ -2,10 +2,9 @@ import os
 from pathlib import Path
 import re
 
-from qgis.PyQt.QtCore import Qt, QSize, QDateTime
+from qgis.PyQt.QtCore import Qt, QSize, QDateTime, QCoreApplication
 from qgis.PyQt.QtWidgets import QWidget, QHBoxLayout, QPushButton, QLabel
 from qgis.PyQt.QtGui import QFontMetrics, QIcon, QMouseEvent
-from .gui_translator import GuiTranslator as gt
 
 RESOURCES_ROOT = os.path.join(Path(__file__).parents[1], 'resources')
 LABEL_STYLESHEETS = {'SUCCESS': 'QLabel{color: rgb(5, 151, 49);'
@@ -32,9 +31,13 @@ LABEL_STYLESHEETS = {'SUCCESS': 'QLabel{color: rgb(5, 151, 49);'
 class GuiHandler:
 
     @staticmethod
+    def tr(message):
+        return QCoreApplication.instance().translate('GuiHandler', message)
+
+    @staticmethod
     def setupDateRange(interval_btn, start_time_edit, end_time_edit):
         interval = re.sub('^[a-zA-Z]+ (\\d+) [a-zA-Z()?]+$', r'\1', interval_btn.label.text())
-        interval = -int(interval) if interval != gt.tr('Last year') else -1
+        interval = -int(interval) if interval != GuiHandler.tr('Last year') else -1
         current_time = QDateTime().currentDateTime()
         past_time = current_time.addYears(interval)
         start_time_edit.setValue(past_time.date().year())

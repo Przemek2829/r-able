@@ -7,7 +7,7 @@ from urllib.parse import quote
 
 from qgis.core import Qgis, QgsProject, QgsRasterLayer, QgsMessageLog, QgsVectorLayer
 from qgis.PyQt.QtWidgets import QApplication, QMessageBox, QListWidgetItem
-from qgis.PyQt.QtCore import QTimer
+from qgis.PyQt.QtCore import QTimer, QCoreApplication
 from ..messenger import Messenger as msg
 from ..gui.gui_translator import GuiTranslator as gt
 
@@ -27,6 +27,9 @@ class ServiceManager:
         self.timer.setInterval(1000)
         self.timer.timeout.connect(self.restoreCopyBtn)
 
+    def tr(self, message):
+        return QCoreApplication.instance().translate('ServiceManager', message)
+
     def getServices(self):
         config = self.app.auth_manager.currentConfig()
         if self.app.token:
@@ -38,16 +41,15 @@ class ServiceManager:
                 response = requests.request("GET", url, headers=headers)
                 if response.status_code == 200:
                     self.available_services = response.json()
-                    self.available_services.append({'name': 'WFS', 'url': 'https://ws86-geoserver.tl.teralab-datascience.fr/geoserver/R-ABLE/wfs', 'description': ' Super serwer wfs'})
                 else:
-                    msg.createMessage(gt.tr('R-ABLE - services error'), QMessageBox.Warning,
+                    msg.createMessage(self.tr('R-ABLE - services error'), QMessageBox.Warning,
                                       '%s<p><i>%s</i></p>' % (
-                                      gt.tr('<p>An attempt to get R-ABLE services failed</p>'), response.text),
+                                      self.tr('<p>An attempt to get R-ABLE services failed</p>'), response.text),
                                       False)
             except Exception as e:
-                msg.createMessage(gt.tr('R-ABLE - connection error'), QMessageBox.Warning,
+                msg.createMessage(self.tr('R-ABLE - connection error'), QMessageBox.Warning,
                                   '%s<p><i>%s</i></p>' % (
-                                  gt.tr('<p>An attempt to connect to the R-ABLE service failed</p>'), e),
+                                  self.tr('<p>An attempt to connect to the R-ABLE service failed</p>'), e),
                                   False)
 
     def changeServicesList(self, checked):
@@ -102,15 +104,15 @@ class ServiceManager:
                                 urlWithParams = 'url={}&crs={}&format=image/png{}{}'.format(service_url, self.project.crs().authid(), layers, styles)
                                 wms_layer = QgsRasterLayer(urlWithParams, metadata.title, 'wms')
                                 self.project.addMapLayer(wms_layer)
-                                QgsMessageLog.logMessage('%s %s %s' % (gt.tr('Service'), service_url, gt.tr('loaded to map window')), 'R-ABLE', Qgis.Success)
+                                QgsMessageLog.logMessage('%s %s %s' % (self.tr('Service'), service_url, self.tr('loaded to map window')), 'R-ABLE', Qgis.Success)
                                 loaded = True
                         if not loaded:
                             msg.createMessage('R-ABLE', QMessageBox.Information,
-                                              gt.tr(f'<p>Service {service_url} for given year is unavailable</p>'),
+                                              '%s %s %s' % (self.tr('<p>Service'), service_url, self.tr('for given year is unavailable</p>')),
                                               False)
                     except Exception as e:
                         msg.createMessage('R-ABLE', QMessageBox.Critical,
-                                          '%s<i>%s</i>' % (gt.tr('<p>Failed to load selected service. Reason:</p>'), e),
+                                          '%s<i>%s</i>' % (self.tr('<p>Failed to load selected service. Reason:</p>'), e),
                                           False)
                 elif service_type == 'wfs':
                     try:
@@ -124,19 +126,19 @@ class ServiceManager:
                                 wfs_layer = QgsVectorLayer(wfs_source, metadata.title, 'wfs')
                                 wfs_layer.loadNamedStyle(os.path.join(os.path.dirname(__file__), 'style.qml'))
                                 self.project.addMapLayer(wfs_layer)
-                                QgsMessageLog.logMessage('%s %s %s' % (gt.tr('Service'), service_url, gt.tr('loaded to map window')), 'R-ABLE', Qgis.Success)
+                                QgsMessageLog.logMessage('%s %s %s' % (self.tr('Service'), service_url, self.tr('loaded to map window')), 'R-ABLE', Qgis.Success)
                                 loaded = True
                         if not loaded:
                             msg.createMessage('R-ABLE', QMessageBox.Information,
-                                              gt.tr(f'<p>Service {service_url} for given year is unavailable</p>'),
+                                              '%s %s %s' % (self.tr('<p>Service'), service_url, self.tr('for given year is unavailable</p>')),
                                               False)
                     except Exception as e:
                         msg.createMessage('R-ABLE', QMessageBox.Critical,
-                                          '%s<i>%s</i>' % (gt.tr('<p>Failed to load selected service. Reason:</p>'), e),
+                                          '%s<i>%s</i>' % (self.tr('<p>Failed to load selected service. Reason:</p>'), e),
                                           False)
         else:
             msg.createMessage('R-ABLE', QMessageBox.Information,
-                              gt.tr('No service selected to load'), False)
+                              self.tr('No service selected to load'), False)
 
     def copySelectedUrl(self):
         service_item = self.window.services_list.currentItem()
@@ -144,10 +146,10 @@ class ServiceManager:
             cb = QApplication.clipboard()
             cb.clear(mode=cb.Clipboard)
             cb.setText(service_item.text(), mode=cb.Clipboard)
-            self.window.services_copy_url_btn.setText(gt.tr('Copied!'))
+            self.window.services_copy_url_btn.setText(self.tr('Copied!'))
             self.timer.start()
         else:
-            msg.createMessage('R-ABLE', QMessageBox.Information, gt.tr('No service selected to copy'), False)
+            msg.createMessage('R-ABLE', QMessageBox.Information, self.tr('No service selected to copy'), False)
 
     def restoreCopyBtn(self):
-        self.window.services_copy_url_btn.setText(gt.tr('Copy selected URL'))
+        self.window.services_copy_url_btn.setText(self.tr('Copy selected URL'))

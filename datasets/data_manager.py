@@ -32,6 +32,9 @@ class DataManager:
         self.connectSignals()
         self.clearTempDatasets()
 
+    def tr(self, message):
+        return QCoreApplication.instance().translate('DataManager', message)
+
     def clearTempDatasets(self):
         gpkg_files = glob.glob('%s/**/*.gpkg' % os.path.dirname(__file__), recursive=True)
         for f in gpkg_files:
@@ -61,7 +64,7 @@ class DataManager:
 
     def reloadLayersCombo(self):
         self.window.data_layers_combo.clear()
-        self.window.data_layers_combo.addItem(gt.tr('Layer'))
+        self.window.data_layers_combo.addItem(self.tr('Layer'))
         for layer in self.project.mapLayers().values():
             self.window.data_layers_combo.addItem(layer.name(), layer.id())
 
@@ -116,10 +119,14 @@ class DataManager:
                                               "extent": extent}
                 self.get_data_task.token = self.app.token
                 self.get_data_task.config = self.app.auth_manager.currentConfig()
-                self.window.progress_screen.showProgress(gt.tr('data downloading...'), self.get_data_task, can_terminate=True)
+                self.window.progress_screen.showProgress(self.tr('data downloading...'), self.get_data_task, can_terminate=True)
                 self.get_data_task.start()
             else:
-                msg.createMessage(gt.tr('R-ABLE - data'), QMessageBox.Warning, extent, False)
+                msg.createMessage(self.tr('R-ABLE - data'), QMessageBox.Warning, extent, False)
+        else:
+            msg.createMessage(self.tr('R-ABLE - connection error'), QMessageBox.Warning,
+                              '%s' % (self.tr('<p>An attempt to connect to the R-ABLE service failed</p>')),
+                              False)
 
     def validateExtent(self):
         units_layout = self.window.data_selected_units.widget().layout()
@@ -127,7 +134,7 @@ class DataManager:
             extent = list(map(lambda i: {"code": re.sub('^(.*) \\((\\d+)\\)$', r'\2', units_layout.itemAt(i).widget().findChildren(QLabel)[0].toolTip()),
                                          "country": "pl"}, range(0, units_layout.count())))
             if len(extent) == 0:
-                return gt.tr('<i>No administrative units selected</i>')
+                return self.tr('<i>No administrative units selected</i>')
             else:
                 return extent
         else:
@@ -138,17 +145,17 @@ class DataManager:
                 ymax = float(self.window.data_north_input.text())
                 return {'geometry': json.loads(QgsGeometry.fromRect(QgsRectangle(xmin, ymin, xmax, ymax)).asJson())}
             except:
-                return gt.tr('<i>Given extent is invalid</i>')
+                return self.tr('<i>Given extent is invalid</i>')
 
     def getDataTaskFinished(self):
         self.window.progress_screen.hideProgress()
         if self.get_data_task.terminated:
-            msg.createMessage(gt.tr('R-ABLE - data'), QMessageBox.Warning,
-                              gt.tr('Terminated by user'),
+            msg.createMessage(self.tr('R-ABLE - data'), QMessageBox.Warning,
+                              self.tr('Terminated by user'),
                               False)
         elif self.get_data_task.error:
-            msg.createMessage(gt.tr('R-ABLE - data error'), QMessageBox.Warning,
-                              '%s<p><i>%s</i></p>' % (gt.tr('<p>An error occurred while downloading data</p>'), self.get_data_task.error),
+            msg.createMessage(self.tr('R-ABLE - data error'), QMessageBox.Warning,
+                              '%s<p><i>%s</i></p>' % (self.tr('<p>An error occurred while downloading data</p>'), self.get_data_task.error),
                               False)
         else:
             data_file = tempfile.NamedTemporaryFile(suffix='.gpkg', delete=False)
@@ -161,4 +168,4 @@ class DataManager:
             mem_layer = layer.materialize(QgsFeatureRequest().setFilterFids(layer.allFeatureIds()))
             mem_layer.loadNamedStyle(os.path.join(os.path.dirname(__file__), 'style.qml'))
             self.project.addMapLayer(mem_layer)
-            QgsMessageLog.logMessage(gt.tr('R-ABLE - data: Data downloaded successfully, result added to map'), 'R-ABLE', Qgis.Success)
+            QgsMessageLog.logMessage(self.tr('R-ABLE - data: Data downloaded successfully, result added to map'), 'R-ABLE', Qgis.Success)

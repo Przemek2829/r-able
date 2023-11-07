@@ -6,13 +6,13 @@
 name=R-ABLE plugin
 qgisMinimumVersion=3.22
 description=//TODO
-version=0.0.3
-author=WIZIPISI
-email=//TODO
+version=0.0.4
+author=The Wroclaw Institute of Spatial Information and Artificial Intelligence
+email=biuro@wizipisi.ai
 
 about=//TODO
 
-tracker=http://bugs
+tracker=https://www.wizipisi.ai/
 repository=http://repo
 # End of mandatory metadata
 
@@ -23,9 +23,9 @@ hasProcessingProvider=no
 # changelog=
 
 # Tags are comma separated with spaces allowed
-tags=python
+tags=python, r-able
 
-homepage=http://homepage
+homepage=https://www.wizipisi.ai/
 category=Plugins
 icon=./resources/icon.png
 # experimental flag
