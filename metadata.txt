@@ -5,12 +5,12 @@
 [general]
 name=R-ABLE plugin
 qgisMinimumVersion=3.22
-description=//TODO
-version=0.0.4
+description=R-ABLE plugin, developed within the EUHubs4Data project, providing access to the web services on agricultural land.
+version=1.0
 author=The Wroclaw Institute of Spatial Information and Artificial Intelligence
 email=biuro@wizipisi.ai
 
-about=//TODO
+about=R-ABLE plugin, developed within the EUHubs4Data project, providing access to the web services on agricultural land. The plugin provides access to the arable land data for the selected timeframe and area of interest and allows the generation of analytical reports on the location of arable land and its dynamics over time for the selected timeframe.
 
 tracker=https://www.wizipisi.ai/
 repository=http://repo
@@ -23,7 +23,7 @@ hasProcessingProvider=no
 # changelog=
 
 # Tags are comma separated with spaces allowed
-tags=python, r-able
+tags=python, r-able, agricultural lands, arable lands, food security
 
 homepage=https://www.wizipisi.ai/
 category=Plugins
