@@ -13,7 +13,7 @@ email=biuro@wizipisi.ai
 about=R-ABLE plugin, developed within the EUHubs4Data project, providing access to the web services on agricultural land. The plugin provides access to the arable land data for the selected timeframe and area of interest and allows the generation of analytical reports on the location of arable land and its dynamics over time for the selected timeframe.
 
 tracker=https://www.wizipisi.ai/
-repository=http://repo
+repository=https://github.com/Przemek2829/r-able
 # End of mandatory metadata
 
 # Recommended items:
